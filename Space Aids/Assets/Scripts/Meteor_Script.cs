@@ -6,11 +6,17 @@ public class Meteor_Script : MonoBehaviour {
     //Holds the health manager for the enemy (AAJ)
     public EnemyManager enemyManager;
 
+    //Holds the bank the meteor gives money to when it is destroyed (AAJ)
+    private Bank_Script bank;
+
     //Holds if the meteor will move forward (AAJ)
     public bool moveForward = true;
 
     //Holds the size of the meteor (AAJ)
     public int size;
+
+    //Holds the case reward for destroying the meteor (AAJ)
+    public int reward;
 
     //Holds the damage the meteor does (AAJ)
     public int damage = -100;
@@ -39,6 +45,9 @@ public class Meteor_Script : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        //Finds the bank (AAJ)
+        bank = GameObject.FindGameObjectWithTag("Bank").GetComponent<Bank_Script>();
+
         //Initializes the movement vectors (AAJ)
         moveLeft = new Vector2(-0.5f, -0.5f);
         moveRight = new Vector2(0.5f, -0.5f);
@@ -58,6 +67,10 @@ public class Meteor_Script : MonoBehaviour {
         {
             //Instantiates two smaller meteors that move forward at 45 degree angles (AAJ)
             splitMeteor();
+
+            //Gives the player money based on its size (AAJ)
+            bank.income(reward);
+
             Destroy(this.gameObject);
         }//if
     }

@@ -10,6 +10,12 @@ public class UI_Script : MonoBehaviour {
     //Holds the player's portrait (AAJ)
     private GameObject playerPortrait;
 
+    //Holds the bank the UI uses to update the screen with the correct amount of money (AAJ)
+    private Bank_Script bank;
+
+    //Holds the text that displays the amount of money the player has (AAJ)
+    public Text moneyText;
+
     //Holds the player's backgrounds (AAJ)
     private SpriteRenderer pinkBackground;
     private SpriteRenderer blueBackground;
@@ -35,6 +41,9 @@ public class UI_Script : MonoBehaviour {
         //Gets the player portrait and its backgrounds (AAJ)
         playerPortrait = GameObject.FindGameObjectWithTag("Player Portrait");
 
+        //Finds the bank (AAJ)
+        bank = GameObject.FindGameObjectWithTag("Bank").GetComponent<Bank_Script>();
+
         //Gets the backgrounds if the player portrait exists (AAJ)
         if (playerPortrait != null)
         {
@@ -56,6 +65,10 @@ public class UI_Script : MonoBehaviour {
                 BackgroundManager();
             }//if
         }//if
+
+        //Updates the display with correct amount of money
+        moneyText.text = "$" + bank.playerFunds + "K";
+
     }//fixed update
 
     /// <summary>

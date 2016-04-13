@@ -10,6 +10,12 @@ public class PlayerController : MonoBehaviour {
     //Holds the players portait (AAJ)
     private GameObject playerPortrait;
 
+    //Holds the player object (AAJ)
+    private PlayerObjects playerObjects;
+
+    //Holds the bank the player uses to buy things (AAJ)
+    private Bank_Script bank;
+    
     //Hold the turrets the player can spawn (AAJ)
     public GameObject basicTurret;
 
@@ -37,6 +43,12 @@ public class PlayerController : MonoBehaviour {
 
         //Finds the player portrait (AAJ)
         playerPortrait = GameObject.FindGameObjectWithTag("Player Portrait") as GameObject;
+
+        //Gets the player's player object for managing health (AAJ)
+        playerObjects = this.GetComponent<PlayerObjects>();
+
+        //Finds the bank (AAJ)
+        bank = GameObject.FindGameObjectWithTag("Bank").GetComponent<Bank_Script>();
 	}//start
 
     // Fixed Update is called consistently 
@@ -55,6 +67,15 @@ public class PlayerController : MonoBehaviour {
 
             //Spawns in turrets on key presses (AAJ)
             SpawnTurrets();
+
+            //The player dies if there health is lowered to zero (AAJ)
+            if(playerObjects != null)
+            {
+                if(playerObjects.health <= 0)
+                {
+                    Debug.Log("Game Over");
+                }//if
+            }//if
 
             //If the escape key pressed the title screen will be loaded (AAJ)
             if(Input.GetKey(KeyCode.Escape))
@@ -129,7 +150,10 @@ public class PlayerController : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            Instantiate(basicTurret, this.transform.position, this.transform.rotation);
+            if(bank.purchaseTurret(basicTurret.GetComponent<Basic_Turret_Script>().turretIndex))
+            {
+                Instantiate(basicTurret, this.transform.position, this.transform.rotation);
+            }//if
         }//if
     }//SpawnTurrets
 }
