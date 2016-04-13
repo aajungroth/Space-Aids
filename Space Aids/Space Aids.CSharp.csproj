@@ -65,6 +65,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Basic_Turret_Gun.cs" />
+    <Compile Include="Assets\Scripts\Basic_Turret_Script.cs" />
     <Compile Include="Assets\Scripts\EnemyManager.cs" />
     <Compile Include="Assets\Scripts\Laser_Gun.cs" />
     <Compile Include="Assets\Scripts\Lasers.cs" />
@@ -73,6 +75,8 @@
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerObjects.cs" />
     <Compile Include="Assets\Scripts\Receiver_Wall.cs" />
+    <Compile Include="Assets\Scripts\TitleScreenUI_Script.cs" />
+    <Compile Include="Assets\Scripts\Title_Screen_Camera.cs" />
     <Compile Include="Assets\Scripts\UI_Script.cs" />
     <Compile Include="Assets\Scripts\World.cs" />
     <Compile Include="Assets\Scripts\Wrapper.cs" />

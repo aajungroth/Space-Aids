@@ -1,10 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 
     //Holds the player's rigidbody so it can be manipulated (AAJ)
     Rigidbody2D playerBody;
+
+    //Holds the players portait (AAJ)
+    private GameObject playerPortrait;
+
+    //Hold the turrets the player can spawn (AAJ)
+    public GameObject basicTurret;
 
     //Holds the player's sprites (AAJ)
     public Sprite pinkShip;
@@ -27,6 +34,9 @@ public class PlayerController : MonoBehaviour {
     {
         //Finds the player (AAJ)
         playerBody = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
+
+        //Finds the player portrait (AAJ)
+        playerPortrait = GameObject.FindGameObjectWithTag("Player Portrait") as GameObject;
 	}//start
 
     // Fixed Update is called consistently 
@@ -42,6 +52,16 @@ public class PlayerController : MonoBehaviour {
 
             //Handles the movement (AAJ)
             MovementControls();
+
+            //Spawns in turrets on key presses (AAJ)
+            SpawnTurrets();
+
+            //If the escape key pressed the title screen will be loaded (AAJ)
+            if(Input.GetKey(KeyCode.Escape))
+            {
+                SceneManager.LoadScene("Title Scene");
+            }//if
+
         }//if
 	}//fixed update
 
@@ -101,4 +121,15 @@ public class PlayerController : MonoBehaviour {
         }//if
 
     }//MovementControls()
+
+    /// <summary>
+    /// Manages the spawning of turrets (AAJ)
+    /// </summary>
+    void SpawnTurrets()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Instantiate(basicTurret, this.transform.position, this.transform.rotation);
+        }//if
+    }//SpawnTurrets
 }
