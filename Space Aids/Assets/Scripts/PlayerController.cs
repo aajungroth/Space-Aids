@@ -35,6 +35,12 @@ public class PlayerController : MonoBehaviour {
     //Holds the troque for the player's turning (AAJ)
     float torque = 0.1f;
 
+    //Holds whether or not the player is targeting a turret with the mouse (AAJ)
+    public bool isTargeting = false;
+
+    //Holds the turret that the player is targeting (AAJ)
+    public GameObject targetedTurret;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -67,6 +73,9 @@ public class PlayerController : MonoBehaviour {
 
             //Spawns in turrets on key presses (AAJ)
             SpawnTurrets();
+
+            //Handles actions that can be done to the turrets (AAJ)
+            ActionManager();
 
             //The player dies if there health is lowered to zero (AAJ)
             if(playerObjects != null)
@@ -148,7 +157,7 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     void SpawnTurrets()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if(Input.GetKeyDown(KeyCode.Alpha1))
         {
             if(bank.purchaseTurret(basicTurret.GetComponent<Basic_Turret_Script>().turretIndex))
             {
@@ -156,4 +165,33 @@ public class PlayerController : MonoBehaviour {
             }//if
         }//if
     }//SpawnTurrets
+
+    /// <summary>
+    /// Manages the actions players can do to turrets (AAJ)
+    /// </summary>
+    void ActionManager()
+    {
+        //Makes sure the player is targeting a turret (AAJ)
+        if(isTargeting == true && targetedTurret != null)
+        {
+            //Rotates the turret the player is targeting (AAJ)
+            if(Input.GetKeyDown(KeyCode.R))
+            {
+                targetedTurret.transform.rotation = this.transform.rotation;
+            }//if
+
+            //Destroys the turret and refunds the player (AAJ)
+            if(Input.GetKeyDown(KeyCode.T))
+            {
+                //The player is no longer targeting the turret that was destroyed (AAJ)
+                isTargeting = false;
+
+                //Refunds the player (AAJ)
+                bank.refundTurret(targetedTurret.GetComponent<Basic_Turret_Script>().turretIndex);
+
+                //Destroys the turret (AAJ)
+                Destroy(targetedTurret);
+            }//if
+        }//if
+    }//ActionManager
 }

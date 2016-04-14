@@ -76,6 +76,7 @@
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerObjects.cs" />
     <Compile Include="Assets\Scripts\Receiver_Wall.cs" />
+    <Compile Include="Assets\Scripts\Target_Rotator_Script.cs" />
     <Compile Include="Assets\Scripts\TitleScreenUI_Script.cs" />
     <Compile Include="Assets\Scripts\Title_Screen_Camera.cs" />
     <Compile Include="Assets\Scripts\UI_Script.cs" />
