@@ -41,6 +41,19 @@ public class PlayerController : MonoBehaviour {
     //Holds the turret that the player is targeting (AAJ)
     public GameObject targetedTurret;
 
+    //Holds whether or not the cool downs are active (AAJ)
+    public bool basicTurretCoolDownOn = false;
+    public bool rotateCoolDownOn = false;
+    public bool trashCoolDownOn = false;
+
+    //Holds the timer variables for cool downs (AAJ)
+    public float basicTurretCoolDown = 1;
+    private float basicTurretTimer;
+    public float rotateCoolDown = 1;
+    private float rotateTimer;
+    public float trashCoolDown = 1;
+    private float trashTimer;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -157,13 +170,29 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     void SpawnTurrets()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        //Does not except button presses if the cool down is on (AAJ)
+        if(basicTurretCoolDownOn == false)
         {
-            if(bank.purchaseTurret(basicTurret.GetComponent<Basic_Turret_Script>().turretIndex))
+            if(Input.GetKeyDown(KeyCode.Alpha1))
             {
-                Instantiate(basicTurret, this.transform.position, this.transform.rotation);
+                if(bank.purchaseTurret(basicTurret.GetComponent<Basic_Turret_Script>().turretIndex))
+                {
+                    Instantiate(basicTurret, this.transform.position, this.transform.rotation);
+
+                    //Sets the cool down annd the timer (AAJ)
+                    basicTurretCoolDownOn = true;
+                    basicTurretTimer = Time.time;
+                }//if
             }//if
         }//if
+        else
+        {
+            //If the time has elapsed then the cool down is over (AAJ)
+            if(Time.time - basicTurretTimer >= basicTurretCoolDown)
+            {
+                basicTurretCoolDownOn = false;
+            }//if
+        }
     }//SpawnTurrets
 
     /// <summary>
@@ -171,27 +200,63 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     void ActionManager()
     {
-        //Makes sure the player is targeting a turret (AAJ)
-        if(isTargeting == true && targetedTurret != null)
+        //Does not except button presses if the cool down is on (AAJ)
+        if(rotateCoolDownOn == false)
         {
-            //Rotates the turret the player is targeting (AAJ)
-            if(Input.GetKeyDown(KeyCode.R))
+            //Makes sure the player is targeting a turret (AAJ)
+            if(isTargeting == true && targetedTurret != null)
             {
-                targetedTurret.transform.rotation = this.transform.rotation;
-            }//if
+                //Rotates the turret the player is targeting (AAJ)
+                if(Input.GetKeyDown(KeyCode.R))
+                {
+                    targetedTurret.transform.rotation = this.transform.rotation;
 
-            //Destroys the turret and refunds the player (AAJ)
-            if(Input.GetKeyDown(KeyCode.T))
-            {
-                //The player is no longer targeting the turret that was destroyed (AAJ)
-                isTargeting = false;
-
-                //Refunds the player (AAJ)
-                bank.refundTurret(targetedTurret.GetComponent<Basic_Turret_Script>().turretIndex);
-
-                //Destroys the turret (AAJ)
-                Destroy(targetedTurret);
+                    //Sets the cool down annd the timer (AAJ)
+                    rotateCoolDownOn = true;
+                    rotateTimer = Time.time;
+                }//if
             }//if
         }//if
+        else
+        {
+            //If the time has elapsed then the cool down is over (AAJ)
+            if(Time.time - rotateTimer >= rotateCoolDown)
+            {
+                rotateCoolDownOn = false;
+            }//if
+        }//else
+
+        //Does not except button presses if the cool down is on (AAJ)
+        if(trashCoolDownOn == false)
+        {
+            //Makes sure the player is targeting a turret (AAJ)
+            if (isTargeting == true && targetedTurret != null)
+            {
+                //Destroys the turret and refunds the player (AAJ)
+                if (Input.GetKeyDown(KeyCode.T))
+                {
+                    //The player is no longer targeting the turret that was destroyed (AAJ)
+                    isTargeting = false;
+
+                    //Refunds the player (AAJ)
+                    bank.refundTurret(targetedTurret.GetComponent<Basic_Turret_Script>().turretIndex);
+
+                    //Destroys the turret (AAJ)
+                    Destroy(targetedTurret);
+
+                    //Sets the cool down annd the timer (AAJ)
+                    trashCoolDownOn = true;
+                    trashTimer = Time.time;
+                }//if
+            }//if
+        }//if
+        else
+        {
+            //If the time has elapsed then the cool down is over (AAJ)
+            if(Time.time - trashTimer >= trashCoolDown)
+            {
+                trashCoolDownOn = false;
+            }//if
+        }//else
     }//ActionManager
 }
