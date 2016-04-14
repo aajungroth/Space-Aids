@@ -32,6 +32,16 @@ public class UI_Script : MonoBehaviour {
     //Holds the counter for alternating the backgrounds (AAJ)
     private int backgroundTimer = 0;
 
+    //Holds the images on the tool bar (AAJ)
+    public GameObject rotationArrowIcon;
+    public GameObject trashCanIcon;
+    public GameObject basicTurretIcon;
+
+    //Holds the timers on the tool bar (AAJ)
+    public GameObject timer1;
+    public GameObject timer2;
+    public GameObject timer3;
+    
     // Use this for initialization
     void Start ()
     {
@@ -68,6 +78,9 @@ public class UI_Script : MonoBehaviour {
 
         //Updates the display with correct amount of money
         moneyText.text = "$" + bank.playerFunds + "K";
+
+        //Updates the tool bar based on the cool downs (AAJ)
+        ManageToolBar();
 
     }//fixed update
 
@@ -123,4 +136,46 @@ public class UI_Script : MonoBehaviour {
             }//if
         }//else
     }//ToggleFlashProtection()
+
+    /// <summary>
+    /// Manages the tool bar based on the cool downs (AAJ)
+    /// </summary>
+    void ManageToolBar()
+    {
+        //Toggles between the icon's image and the timer image based on the corresponding cool down (AAJ)
+        if(player.GetComponent<PlayerController>().rotateCoolDownOn == true)
+        {
+            rotationArrowIcon.GetComponent<SpriteRenderer>().enabled = false;
+            timer1.GetComponent<SpriteRenderer>().enabled = true;
+        }//if
+        else if(player.GetComponent<PlayerController>().rotateCoolDownOn == false)
+        {
+            rotationArrowIcon.GetComponent<SpriteRenderer>().enabled = true;
+            timer1.GetComponent<SpriteRenderer>().enabled = false;
+        }//else
+
+        //Toggles between the icon's image and the timer image based on the corresponding cool down (AAJ)
+        if (player.GetComponent<PlayerController>().trashCoolDownOn == true)
+        {
+            trashCanIcon.GetComponent<SpriteRenderer>().enabled = false;
+            timer2.GetComponent<SpriteRenderer>().enabled = true;
+        }//if
+        else if(player.GetComponent<PlayerController>().trashCoolDownOn == false)
+        {
+            trashCanIcon.GetComponent<SpriteRenderer>().enabled = true;
+            timer2.GetComponent<SpriteRenderer>().enabled = false;
+        }//else
+
+        //Toggles between the icon's image and the timer image based on the corresponding cool down (AAJ)
+        if (player.GetComponent<PlayerController>().basicTurretCoolDownOn == true)
+        {
+            basicTurretIcon.GetComponent<SpriteRenderer>().enabled = false;
+            timer3.GetComponent<SpriteRenderer>().enabled = true;
+        }//if
+        else if(player.GetComponent<PlayerController>().basicTurretCoolDownOn == false)
+        {
+            basicTurretIcon.GetComponent<SpriteRenderer>().enabled = true;
+            timer3.GetComponent<SpriteRenderer>().enabled = false;
+        }//else
+    }//ManageToolBar
 }
