@@ -31,7 +31,6 @@ public class Bank_Script : MonoBehaviour {
     /// </summary>
     public bool purchaseTurret(int index)
     {
-
         //Tests the with the given index number to see if the player has enough money (AAJ)
         switch(index)
         {
@@ -41,16 +40,34 @@ public class Bank_Script : MonoBehaviour {
                 {
                     playerFunds -= basicTurret;
                     return true;
-                }
+                }//if
             break;
 
             default:
                 //If the index number is not valid (AAJ)
                 return false;
-            break;
+            //break;
         }
 
         //If the player does not have enought money to buy a turret (AAJ)
         return false;
     }//purchaseTurret
+
+    
+    public void refundTurret(int index)
+    {
+        //Tests the with the given index number to see if the player has enough money (AAJ)
+        switch (index)
+        {
+            case 0:
+                //The Basic Turret (AAJ)
+                playerFunds += basicTurret;
+            break;
+
+            default:
+                //If the index number is not valid (AAJ)
+                
+            break;
+        }
+    }//refundTurret
 }
