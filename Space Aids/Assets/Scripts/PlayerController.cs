@@ -138,26 +138,26 @@ public class PlayerController : MonoBehaviour {
     void MovementControls()
     {
         //The controls for moving the player forward and backward (AAJ)
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.W))
         {
             //Moves the player forward (AAJ)
             playerBody.AddForce(transform.up * 1.5f, ForceMode2D.Force);
         }//if
 
-        if (Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.S))
         {
             //Moves the player backward (AAJ)
             playerBody.AddForce(transform.up * (-1.0f), ForceMode2D.Force);
         }//if
 
         //The controls for turning the player (AAJ)
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.A))
         {
             //Turns the player left (AAJ)
             playerBody.AddTorque(torque, ForceMode2D.Force);
         }//if
 
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.D))
         {
             //Turns the player right (AAJ)
             playerBody.AddTorque(-torque, ForceMode2D.Force);
