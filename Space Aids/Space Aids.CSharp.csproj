@@ -58,12 +58,6 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
@@ -76,21 +70,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Bank_Script.cs" />
-    <Compile Include="Assets\Scripts\Basic_Turret_Gun.cs" />
-    <Compile Include="Assets\Scripts\Basic_Turret_Script.cs" />
     <Compile Include="Assets\Scripts\EnemyManager.cs" />
-    <Compile Include="Assets\Scripts\Laser_Gun.cs" />
     <Compile Include="Assets\Scripts\Lasers.cs" />
     <Compile Include="Assets\Scripts\Main_Camera_Script.cs" />
     <Compile Include="Assets\Scripts\Meteor_Script.cs" />
-    <Compile Include="Assets\Scripts\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\PlayerObjects.cs" />
+    <Compile Include="Assets\Scripts\Player Scripts\Laser_Gun.cs" />
+    <Compile Include="Assets\Scripts\Player Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Player Scripts\PlayerObjects.cs" />
+    <Compile Include="Assets\Scripts\Player Scripts\World.cs" />
     <Compile Include="Assets\Scripts\Receiver_Wall.cs" />
     <Compile Include="Assets\Scripts\Target_Rotator_Script.cs" />
-    <Compile Include="Assets\Scripts\TitleScreenUI_Script.cs" />
-    <Compile Include="Assets\Scripts\Title_Screen_Camera.cs" />
+    <Compile Include="Assets\Scripts\Title Screen Scripts\TitleScreenUI_Script.cs" />
+    <Compile Include="Assets\Scripts\Title Screen Scripts\Title_Screen_Camera.cs" />
+    <Compile Include="Assets\Scripts\Turret Scripts\Basic_Turret_Gun.cs" />
+    <Compile Include="Assets\Scripts\Turret Scripts\Basic_Turret_Script.cs" />
+    <Compile Include="Assets\Scripts\Turret Scripts\Plasma_Beam.cs" />
+    <Compile Include="Assets\Scripts\Turret Scripts\Plasma_Turret.cs" />
+    <Compile Include="Assets\Scripts\Turret Scripts\Plasma_Turret_Rotator.cs" />
+    <Compile Include="Assets\Scripts\Turret Scripts\Turret_Object_Script.cs" />
     <Compile Include="Assets\Scripts\UI_Script.cs" />
-    <Compile Include="Assets\Scripts\World.cs" />
     <Compile Include="Assets\Scripts\Wrapper.cs" />
   </ItemGroup>
   <ItemGroup>
