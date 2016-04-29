@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour {
     
     //Hold the turrets the player can spawn (AAJ)
     public GameObject basicTurret;
+    public GameObject plasmaTurret;
 
     //Holds the player's sprites (AAJ)
     public Sprite pinkShip;
@@ -43,12 +44,15 @@ public class PlayerController : MonoBehaviour {
 
     //Holds whether or not the cool downs are active (AAJ)
     public bool basicTurretCoolDownOn = false;
+    public bool plasmaTurretCoolDownOn = false;
     public bool rotateCoolDownOn = false;
     public bool trashCoolDownOn = false;
 
     //Holds the timer variables for cool downs (AAJ)
     public float basicTurretCoolDown = 1;
     private float basicTurretTimer;
+    public float plasmaTurretCoolDown = 3;
+    private float plasmaTurretTimer;
     public float rotateCoolDown = 1;
     private float rotateTimer;
     public float trashCoolDown = 1;
@@ -175,7 +179,7 @@ public class PlayerController : MonoBehaviour {
         {
             if(Input.GetKeyDown(KeyCode.Alpha1))
             {
-                if(bank.purchaseTurret(basicTurret.GetComponent<Basic_Turret_Script>().turretIndex))
+                if(bank.purchaseTurret(basicTurret.GetComponent<Turret_Object_Script>().turretIndex))
                 {
                     Instantiate(basicTurret, this.transform.position, this.transform.rotation);
 
@@ -192,7 +196,32 @@ public class PlayerController : MonoBehaviour {
             {
                 basicTurretCoolDownOn = false;
             }//if
-        }
+        }//else
+
+        //Does not except button presses if the cool down is on (AAJ)
+        if (plasmaTurretCoolDownOn == false)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                if (bank.purchaseTurret(plasmaTurret.GetComponent<Turret_Object_Script>().turretIndex))
+                {
+                    Instantiate(plasmaTurret, this.transform.position, this.transform.rotation);
+
+                    //Sets the cool down annd the timer (AAJ)
+                    plasmaTurretCoolDownOn = true;
+                    plasmaTurretTimer = Time.time;
+                }//if
+            }//if
+        }//if
+        else
+        {
+            //If the time has elapsed then the cool down is over (AAJ)
+            if (Time.time - plasmaTurretTimer >= plasmaTurretCoolDown)
+            {
+                plasmaTurretCoolDownOn = false;
+            }//if
+        }//else
+
     }//SpawnTurrets
 
     /// <summary>
@@ -239,7 +268,7 @@ public class PlayerController : MonoBehaviour {
                     isTargeting = false;
 
                     //Refunds the player (AAJ)
-                    bank.refundTurret(targetedTurret.GetComponent<Basic_Turret_Script>().turretIndex);
+                    bank.refundTurret(targetedTurret.GetComponent<Turret_Object_Script>().turretIndex);
 
                     //Destroys the turret (AAJ)
                     Destroy(targetedTurret);

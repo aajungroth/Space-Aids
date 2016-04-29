@@ -3,11 +3,6 @@ using System.Collections;
 
 public class Basic_Turret_Script : MonoBehaviour {
 
-    //Holds the index number of this turret (AAJ)
-    public int turretIndex = 0;
-
-    //Holds the cost of the turret (AAJ)
-
     //Holds the player object (AAJ)
     private PlayerObjects playerObjects;
 
@@ -60,7 +55,7 @@ public class Basic_Turret_Script : MonoBehaviour {
     //Detects when the player stops targeting a basic turret (AAJ)
     void OnMouseExit()
     {
-        if (playerController != null)
+        if(playerController != null)
         {
             playerController.isTargeting = false;
 

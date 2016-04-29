@@ -6,8 +6,11 @@ public class Bank_Script : MonoBehaviour {
     //The amount of money the player has (AAJ)
     public int playerFunds = 0;
 
-    //The amound of money that the basic turret costs (AAJ)
+    //The amount of money that the basic turret costs (AAJ)
     public int basicTurret = 40;
+
+    //The amount of money that the plasma turret costs (AAJ)
+    public int plasmaTurret = 120;
     
 	// Use this for initialization
 	void Start () {
@@ -43,6 +46,15 @@ public class Bank_Script : MonoBehaviour {
                 }//if
             break;
 
+            case 1:
+                //The Plasma Turret (AAJ)
+                if (playerFunds >= plasmaTurret)
+                {
+                    playerFunds -= plasmaTurret;
+                    return true;
+                }//if
+            break;
+
             default:
                 //If the index number is not valid (AAJ)
                 return false;
@@ -62,6 +74,11 @@ public class Bank_Script : MonoBehaviour {
             case 0:
                 //The Basic Turret (AAJ)
                 playerFunds += basicTurret;
+            break;
+
+            case 1:
+                //The Plasma Turret (AAJ)
+                playerFunds += plasmaTurret;
             break;
 
             default:
