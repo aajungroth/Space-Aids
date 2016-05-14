@@ -36,11 +36,13 @@ public class UI_Script : MonoBehaviour {
     public GameObject rotationArrowIcon;
     public GameObject trashCanIcon;
     public GameObject basicTurretIcon;
+    public GameObject plasmaTurretIcon;
 
     //Holds the timers on the tool bar (AAJ)
     public GameObject timer1;
     public GameObject timer2;
     public GameObject timer3;
+    public GameObject timer4;
     
     // Use this for initialization
     void Start ()
@@ -176,6 +178,18 @@ public class UI_Script : MonoBehaviour {
         {
             basicTurretIcon.GetComponent<SpriteRenderer>().enabled = true;
             timer3.GetComponent<SpriteRenderer>().enabled = false;
+        }//else
+        
+        //Toggles between the icon's image and the timer image based on the corresponding cool down (AAJ)
+        if (player.GetComponent<PlayerController>().plasmaTurretCoolDownOn == true)
+        {
+            plasmaTurretIcon.GetComponent<SpriteRenderer>().enabled = false;
+            timer4.GetComponent<SpriteRenderer>().enabled = true;
+        }//if
+        else if (player.GetComponent<PlayerController>().plasmaTurretCoolDownOn == false)
+        {
+            plasmaTurretIcon.GetComponent<SpriteRenderer>().enabled = true;
+            timer4.GetComponent<SpriteRenderer>().enabled = false;
         }//else
     }//ManageToolBar
 }
