@@ -24,6 +24,10 @@ public class PlayerController : MonoBehaviour {
     public Sprite pinkShip;
     public Sprite blueShip;
 
+    //Holds the player's target (AAJ)
+    public GameObject playerTarget;
+    public Vector2 tempTargetLocation;
+
     //Holds whether no the sprite will change (AAJ)
     public bool flashProtection = true;
 
@@ -72,6 +76,17 @@ public class PlayerController : MonoBehaviour {
 
         //Finds the bank (AAJ)
         bank = GameObject.FindGameObjectWithTag("Bank").GetComponent<Bank_Script>();
+
+        //If there is no player target, the default mouse will display (AAJ)
+        if (playerTarget != null)
+        {
+            //Removes the mouse so the target can take its place (AAJ)
+            Cursor.visible = false;
+
+            //Locks the cursor to the game (AAJ)
+            Cursor.lockState = CursorLockMode.Confined;
+        }//if
+
 	}//start
 
     // Fixed Update is called consistently 
@@ -79,10 +94,26 @@ public class PlayerController : MonoBehaviour {
         if(playerBody != null)
         {
             //Only changes sprites if their is no flash protection (AAJ)
-            if (flashProtection == false)
+            if(flashProtection == false)
             {
                 //Manages the player's sprites (AAJ)
                 SpriteManager();
+            }//if
+
+            //Follows the mouse so give it a new icon (AAJ)
+            if(playerTarget != null)
+            {
+                //Thanks to Michael Lee for fixing this with the power of Google (AAJ)
+                Vector2 temp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                playerTarget.transform.position = new Vector3(temp.x, temp.y, 0);
+               //Debug.Log(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            }//if
+
+            //If there is no player target, the default mouse will display (AAJ)
+            if (playerTarget != null)
+            {
+                //Removes the mouse so the target can take its place (AAJ)
+                Cursor.visible = false;
             }//if
 
             //Handles the movement (AAJ)

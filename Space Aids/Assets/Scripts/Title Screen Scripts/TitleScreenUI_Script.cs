@@ -34,7 +34,10 @@ public class TitleScreenUI_Script : MonoBehaviour {
 
         //Gets the title screen camera
         title_Screen_Camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Title_Screen_Camera>();
-	}//Start
+
+        //Adds the mouse back in so the player can interface with the title screen (AAJ)
+        Cursor.visible = true;
+    }//Start
 	
 	// Update is called once per frame
 	void Update ()
