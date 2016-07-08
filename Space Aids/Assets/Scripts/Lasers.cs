@@ -12,16 +12,52 @@ public class Lasers : MonoBehaviour {
     //Holds how much damage the laser does (AAJ)
     public int damage = -10;
 
-	// Use this for initialization
-	void Start () {
-        
-    }//start
-	
-	// Update is called once per frame
-	void Update () {
+    //Laser speed, tempMousePosition, and direction are for lasers fired by the player (AAJ)
 
-        //This shoots the bullets foward (AAJ)
-        this.GetComponent<Rigidbody2D>().AddRelativeForce(Vector2.up, ForceMode2D.Impulse);
+    //Holds the speed of the laser (AAJ)
+    public float laserSpeed = 20.0f;
+
+    //Temporarly holds the mouse's position (AAJ)
+    private Vector2 tempMousePosition;
+
+    //Holds the direction the laser should go in (AAJ)
+    private Vector2 direction;
+
+    //Holds whether or not the player fired the laser (AAJ)
+    public bool fromPlayer = false;
+
+    // Use this for initialization
+    void Start()
+    {
+        //Only the player's lasers shoot towards the mouse (AAJ)
+        if (fromPlayer == true)
+        {
+            //This gets the mouse's location (AAJ)
+            tempMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            //Gets the direction (AAJ)
+            direction = this.transform.position;
+            direction = tempMousePosition - direction;
+
+            //This normalizes the direction (AAJ)
+            direction.Normalize();
+        }//if
+    }//Start
+
+    //Update is called once per frame
+    void Update()
+    {
+        //This shoots the lasers foward (AAJ)
+        if (fromPlayer == true)
+        {
+            //This is for lasers fired from turrets (AAJ)
+            this.GetComponent<Rigidbody2D>().AddForce(direction * laserSpeed);
+        }//if
+        else
+        {
+            //This is for lasers fired from players (AAJ)
+            this.GetComponent<Rigidbody2D>().AddRelativeForce(Vector2.up, ForceMode2D.Impulse);
+        }//else
 
         //Destroys the laser after a set time (AAJ)
         if (laserTimer == maxlaserTimer)
@@ -32,7 +68,7 @@ public class Lasers : MonoBehaviour {
         //Increments the timer (AAJ)
         laserTimer++;
 
-	}//update
+	}//Update
 
     /// <summary>
     /// Subtracs health from enemies that it hits (AAJ)
