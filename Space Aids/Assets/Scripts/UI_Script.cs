@@ -21,7 +21,7 @@ public class UI_Script : MonoBehaviour {
     private SpriteRenderer blueBackground;
 
     //Holds the toggle for flash protection (AAJ)
-    public Toggle flashProtectionToggle;
+    public Text flashProtectionText;
 
     //Holds whether no the sprite will change (AAJ)
     public bool flashProtection = true;
@@ -67,8 +67,14 @@ public class UI_Script : MonoBehaviour {
     // Fixed Update is called consistently 
     void FixedUpdate ()
     {
+        //Toggels the flash protection whenever p is pressed (AAJ)
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            ToggleFlashProtection();
+        }//if
+
         //Alters the Player Portrait backgrounds if the player portrait exists (AAJ)
-        if(playerPortrait != null)
+        if (playerPortrait != null)
         {
             //Only changes sprites if their is no flash protection (AAJ)
             if (flashProtection == false)
@@ -85,6 +91,23 @@ public class UI_Script : MonoBehaviour {
         ManageToolBar();
 
     }//fixed update
+
+    /// <summary>
+    /// Toggles the flash protection for the player portrait (AAJ)
+    /// </summary>
+    private void ToggleFlashProtection()
+    {
+        if (flashProtection == true)
+        {
+            //Toggles the player's flash protection off (AAJ)
+            flashProtection = false;
+        }//if
+        else
+        {
+            //Toggles the player's flash protection on (AAJ)
+            flashProtection = true;
+        }//else
+    }//ToggleFlashProtection()
 
     /// <summary>
     /// Alternates between the player's two backgrounds for a flashing effect (AAJ)
@@ -111,33 +134,6 @@ public class UI_Script : MonoBehaviour {
         //Updates sprite count (AAJ)
         backgroundTimer++;
     }//SpriteManager()
-
-    /// <summary>
-    /// Toggles the flash protection for the player portrait and space ship (AAJ)
-    /// </summary>
-    public void ToggleFlashProtection()
-    {
-        if(flashProtection == true)
-        {
-            flashProtection = false;
-
-            //Toggles the player's flash protection (AAJ)
-            if (player != null)
-            {
-                player.GetComponent<PlayerController>().flashProtection = false;
-            }//if
-        }//if
-        else
-        {
-            flashProtection = true;
-
-            //Toggles the player's flash protection (AAJ)
-            if (player != null)
-            {
-                player.GetComponent<PlayerController>().flashProtection = true;
-            }//if
-        }//else
-    }//ToggleFlashProtection()
 
     /// <summary>
     /// Manages the tool bar based on the cool downs (AAJ)

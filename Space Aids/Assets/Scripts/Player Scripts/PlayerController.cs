@@ -62,8 +62,14 @@ public class PlayerController : MonoBehaviour {
     public float trashCoolDown = 1;
     private float trashTimer;
 
-	// Use this for initialization
-	void Start ()
+    //Temporarly holds the mouse's position (AAJ)
+    private Vector2 tempMousePosition;
+    
+    //Holds whether or not the player's explosion effect has played (AAJ)
+    private bool playerExplosionPlayed = false;
+
+    // Use this for initialization
+    void Start ()
     {
         //Finds the player (AAJ)
         playerBody = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
@@ -89,10 +95,17 @@ public class PlayerController : MonoBehaviour {
 
 	}//start
 
-    // Fixed Update is called consistently 
-    void FixedUpdate () {
+    //Fixed Update is called consistently 
+    void FixedUpdate()
+    {
         if(playerBody != null)
         {
+            //Toggels the flash protection whenever p is pressed (AAJ)
+            if(Input.GetKeyDown(KeyCode.P))
+            {
+                ToggleFlashProtection();
+            }//if
+
             //Only changes sprites if their is no flash protection (AAJ)
             if(flashProtection == false)
             {
@@ -104,8 +117,8 @@ public class PlayerController : MonoBehaviour {
             if(playerTarget != null)
             {
                 //Thanks to Michael Lee for fixing this with the power of Google (AAJ)
-                Vector2 temp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                playerTarget.transform.position = new Vector3(temp.x, temp.y, 0);
+                tempMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                playerTarget.transform.position = new Vector3(tempMousePosition.x, tempMousePosition.y, 0);
                //Debug.Log(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             }//if
 
@@ -131,6 +144,20 @@ public class PlayerController : MonoBehaviour {
                 if(playerObjects.health <= 0)
                 {
                     Debug.Log("Game Over");
+                    //Plays the player explosion once (AAJ)
+                    if (playerExplosionPlayed == false)
+                    {
+                        this.GetComponent<ParticleSystem>().Play();
+
+                        //Prevents the explosion from being played again (AAJ)
+                        playerExplosionPlayed = true;
+
+                        //Disables the player and the player portrait (AAJ)
+                        playerPortrait.gameObject.SetActive(false);
+                        this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+                        this.GetComponent<SpriteRenderer>().enabled = false;
+                        
+                    }//if
                 }//if
             }//if
 
@@ -142,6 +169,23 @@ public class PlayerController : MonoBehaviour {
 
         }//if
 	}//fixed update
+
+    /// <summary>
+    /// Toggles the flash protection for the player space ship (AAJ)
+    /// </summary>
+    private void ToggleFlashProtection()
+    {
+        if (flashProtection == true)
+        {
+            //Toggles the player's flash protection off (AAJ)
+            flashProtection = false;
+        }//if
+        else
+        {
+            //Toggles the player's flash protection on (AAJ)
+            flashProtection = true;
+        }//else
+    }//ToggleFlashProtection()
 
     /// <summary>
     /// Alternates between the player's two sprites for a flashing effect (AAJ)
@@ -173,26 +217,26 @@ public class PlayerController : MonoBehaviour {
     void MovementControls()
     {
         //The controls for moving the player forward and backward (AAJ)
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
             //Moves the player forward (AAJ)
             playerBody.AddForce(transform.up * 1.5f, ForceMode2D.Force);
         }//if
 
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
             //Moves the player backward (AAJ)
             playerBody.AddForce(transform.up * (-1.0f), ForceMode2D.Force);
         }//if
 
         //The controls for turning the player (AAJ)
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             //Turns the player left (AAJ)
             playerBody.AddTorque(torque, ForceMode2D.Force);
         }//if
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             //Turns the player right (AAJ)
             playerBody.AddTorque(-torque, ForceMode2D.Force);
