@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 
@@ -39,9 +38,6 @@ public class PlayerController : MonoBehaviour {
 
     //Holds the counter for alternating the sprites (AAJ)
     private int spriteTimer = 0;
-
-    //Holds the troque for the player's turning (AAJ)
-    float torque = 0.1f;
 
     //Holds whether or not the player is targeting a turret with the mouse (AAJ)
     public bool isTargeting = false;
@@ -134,12 +130,17 @@ public class PlayerController : MonoBehaviour {
                //Debug.Log(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             }//if
 
-            //If there is no player target, the default mouse will display (AAJ)
-            if (playerTarget != null)
+            //If there is a player target and it is visible, the default mouse will display (AAJ)
+            if (playerTarget != null && playerTarget.GetComponent<SpriteRenderer>().enabled != false)
             {
                 //Removes the mouse so the target can take its place (AAJ)
                 Cursor.visible = false;
             }//if
+            else
+            {
+                //Adds the mouse back in (AAJ)
+                Cursor.visible = true;
+            }//else
 
             //Handles the movement (AAJ)
             MovementControls();
@@ -158,32 +159,11 @@ public class PlayerController : MonoBehaviour {
                     //Plays the player explosion once (AAJ)
                     if (playerExplosionPlayed == false)
                     {
-                        Debug.Log("Game Over");
-
-                        this.GetComponent<ParticleSystem>().Play();
-
-                        //Prevents the explosion from being played again (AAJ)
-                        playerExplosionPlayed = true;
-
-                        //Disables the player and the player portrait (AAJ)
-                        playerPortrait.gameObject.SetActive(false);
-                        this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
-                        this.GetComponent<SpriteRenderer>().enabled = false;
-
-                        //Disables the player target (AAJ)
-                        playerTarget.GetComponent<SpriteRenderer>().enabled = false;
-
-                        //Disables the player from moving, placing turrets, etc (AAJ)
-                        isAlive = false;
+                        //Ends the game (AAJ)
+                        gameOver();
                     }//if
                 }//if
             }//if
-        }//if
-        
-        //If the escape key pressed the title screen will be loaded (AAJ)
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            SceneManager.LoadScene("Title Scene");
         }//if
     }//fixed update
 
@@ -393,4 +373,31 @@ public class PlayerController : MonoBehaviour {
             }//if
         }//else
     }//ActionManager
+
+    /// <summary>
+    /// Ends the game when the player's ship explodes (AAJ)
+    /// </summary>
+    void gameOver()
+    {
+        Debug.Log("Game Over");
+
+        this.GetComponent<ParticleSystem>().Play();
+
+        //Prevents the explosion from being played again (AAJ)
+        playerExplosionPlayed = true;
+
+        //Disables the player and the player portrait (AAJ)
+        playerPortrait.gameObject.SetActive(false);
+        this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        this.GetComponent<SpriteRenderer>().enabled = false;
+
+        //Disables the player target (AAJ)
+        playerTarget.GetComponent<SpriteRenderer>().enabled = false;
+
+        //Adds the mouse back in (AAJ)
+        Cursor.visible = true;
+
+        //Disables the player from moving, placing turrets, etc (AAJ)
+        isAlive = false;
+    }//gameOVer
 }
