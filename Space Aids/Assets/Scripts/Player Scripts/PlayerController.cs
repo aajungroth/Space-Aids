@@ -77,8 +77,8 @@ public class PlayerController : MonoBehaviour {
     //Holds whether or not the player's explosion effect has played (AAJ)
     private bool playerExplosionPlayed = false;
 
-    // Use this for initialization
-    void Start ()
+    //Use this for initialization
+    void Start()
     {
         //Finds the player (AAJ)
         playerBody = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();

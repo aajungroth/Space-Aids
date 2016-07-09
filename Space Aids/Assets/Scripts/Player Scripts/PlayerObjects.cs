@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerObjects : MonoBehaviour {
 
     //The player object's health
-    public int health = 100;
+    public float health = 100;
 
     //Holds whether or not the object is touching a wrapping wall receiver (AAJ)
     public bool canWrap = true;

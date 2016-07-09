@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Bank_Script.cs" />
     <Compile Include="Assets\Scripts\EnemyManager.cs" />
+    <Compile Include="Assets\Scripts\Health_Bar_Script.cs" />
     <Compile Include="Assets\Scripts\Lasers.cs" />
     <Compile Include="Assets\Scripts\Main_Camera_Script.cs" />
     <Compile Include="Assets\Scripts\Meteor_Script.cs" />
