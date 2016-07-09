@@ -10,10 +10,10 @@ public class Laser_Gun : MonoBehaviour {
     private float shotTime;
 
     //A timer to prevent the lasers from being spammed (AAJ)
-    private float reloadTimer = 0.25f;
+    private float reloadTimer = 0.5f;
 
     //The amount of time before the gun can be fired (AAJ)
-    public float reloadTimeLimit = 0.25f;
+    public float reloadTimeLimit = 0.5f;
 
     //Controls whether the laser gun is firing or not (AAJ)
     public bool isFiring = false;
