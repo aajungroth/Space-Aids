@@ -15,7 +15,7 @@ public class Lasers : MonoBehaviour {
     //Laser speed, tempMousePosition, and direction are for lasers fired by the player (AAJ)
 
     //Holds the speed of the laser (AAJ)
-    public float laserSpeed = 20.0f;
+    public float laserSpeed = 100.0f;
 
     //Temporarly holds the mouse's position (AAJ)
     private Vector2 tempMousePosition;
@@ -41,6 +41,9 @@ public class Lasers : MonoBehaviour {
 
             //This normalizes the direction (AAJ)
             direction.Normalize();
+
+            //This is for lasers fired from turrets (AAJ)
+            this.GetComponent<Rigidbody2D>().AddForce(direction * laserSpeed);
         }//if
     }//Start
 
@@ -48,14 +51,9 @@ public class Lasers : MonoBehaviour {
     void Update()
     {
         //This shoots the lasers foward (AAJ)
-        if (fromPlayer == true)
+        if (fromPlayer == false)
         {
             //This is for lasers fired from turrets (AAJ)
-            this.GetComponent<Rigidbody2D>().AddForce(direction * laserSpeed);
-        }//if
-        else
-        {
-            //This is for lasers fired from players (AAJ)
             this.GetComponent<Rigidbody2D>().AddRelativeForce(Vector2.up, ForceMode2D.Impulse);
         }//else
 

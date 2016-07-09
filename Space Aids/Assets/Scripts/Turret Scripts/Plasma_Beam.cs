@@ -25,7 +25,7 @@ public class Plasma_Beam : MonoBehaviour {
     /// Enemies who touch the stream take damage (AAJ)
     /// </summary>
     /// <param name="Object"></param>
-    void OnTriggerEnter2D(Collider2D Object)
+    void OnTriggerStay2D(Collider2D Object)
     {
         //If the enemy exists (AAJ)
         if(Object.GetComponent<EnemyManager>() != null)

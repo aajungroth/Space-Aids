@@ -33,6 +33,8 @@ public class EnemyManager : MonoBehaviour {
         {
             health += healthOverTime;
         }//if
+
+        isHealthChangingOverTime = false;
     }//fixed update
 
     /// <summary>
