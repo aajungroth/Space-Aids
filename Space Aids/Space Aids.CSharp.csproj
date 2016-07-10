@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\Lasers.cs" />
     <Compile Include="Assets\Scripts\Main_Camera_Script.cs" />
     <Compile Include="Assets\Scripts\Meteor_Script.cs" />
+    <Compile Include="Assets\Scripts\Options_Menu_Script.cs" />
     <Compile Include="Assets\Scripts\Player Scripts\Laser_Gun.cs" />
     <Compile Include="Assets\Scripts\Player Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Player Scripts\PlayerObjects.cs" />
